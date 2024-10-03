@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Receta extends Model
 {
     use HasFactory;
+
+    protected $fillable =[
+
+        'categoria_id',
+        'user_id',
+        'titulo',
+        'descripcion',
+        'instrucciones',
+        'ingredientes',
+        'imagen',
+    ];
     public function etiquetas(){
         return $this->belongsToMany(Etiqueta::class);
         
