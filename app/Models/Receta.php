@@ -12,7 +12,7 @@ class Receta extends Model
     protected $fillable =[
 
         'categoria_id',
-        'user_id',
+        //'user_id',
         'titulo',
         'descripcion',
         'instrucciones',

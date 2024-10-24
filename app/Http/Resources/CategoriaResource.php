@@ -24,6 +24,6 @@ class CategoriaResource extends JsonResource
             'relaciones' =>[
                 'recetas' => RecetaResource::collection($this->recetas),
             ],
-        ];
+        ]; 
     }
 }

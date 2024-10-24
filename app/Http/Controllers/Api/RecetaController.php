@@ -8,19 +8,24 @@ use App\Models\Receta;
 use App\Http\Resources\RecetaResource;
 use App\HTTP\Requests\StoreRecetasRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 use App\HTTP\Requests\UpdateRecetasRequest;
 
 
 
 class RecetaController extends Controller
 {
+    use AuthorizesRequests;
     public function index(){
        $recetas = Receta::with('categoria','etiquetas','user')->get();
         return RecetaResource::collection($recetas);
 
     }
+
     public function store(StoreRecetasRequest $requets){
-        $receta = Receta::create($requets->all());
+      // $receta = Receta::create($requets->all());
+        $receta = $requets->user()->recetas()->create($requets->all());
         $receta ->etiquetas()->attach(json_decode($requets->etiquetas));
 
         return response()->json(new RecetaResource($receta), 
@@ -33,6 +38,7 @@ class RecetaController extends Controller
     }
 
     public function update(UpdateRecetasRequest $request, Receta $receta){
+        $this->authorize('update',$receta);
         $receta->update($request->all());
 
         if($etiquetas= json_decode($request->etiquetas)){
@@ -44,6 +50,8 @@ class RecetaController extends Controller
 
     }
     public function destroy(Receta $receta){
+        $this->authorize('delete',$receta);
+
         $receta->delete();
         return response()->json(null, Response::HTTP_NO_CONTENT); //204 No Content
 

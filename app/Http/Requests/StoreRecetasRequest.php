@@ -23,7 +23,7 @@ class StoreRecetasRequest extends FormRequest
     {
         return [
             'categoria_id' => 'required|integer',
-            'user_id' => 'required|integer',
+            //'user_id' => 'required|integer',
             'titulo' => 'required|string',
             'descripcion' => 'required|string',
             'ingredientes' =>'required|string',

@@ -22,12 +22,14 @@ class UpdateRecetasRequest extends FormRequest
     public function rules(): array
     {
         return [
+            
             'categoria_id' => 'required|integer',
-            'user_id' => 'required|integer',
+            //'user_id' => 'required|integer',
             'titulo' => 'required|string',
             'descripcion' => 'required|string',
             'ingredientes' =>'required|string',
             'instrucciones'=>'required|string',
+
         ];
     }
 }
